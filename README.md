@@ -1,37 +1,42 @@
-# ProFinda Components — Prototype Agent
+# ProFinda Prototype
 
-Turn any idea into a ProFinda-looking prototype in minutes. No coding required.
+This is your ProFinda prototyping workspace.
 
-## Setup (one-time, 2 minutes)
+Clone it once. Open OpenCode here every time you want to prototype.
 
-Add this to your `~/.config/opencode/opencode.json` under the root level:
+---
 
-```json
-{
-  "instructions": [
-    "https://raw.githubusercontent.com/pedrorodrigopro/ProFindaComponents/main/ProFindaComponents.md"
-  ]
-}
+## Setup (one-time)
+
+```bash
+git clone https://github.com/pedrorodrigopro/ProFindaComponents
 ```
 
-If you already have an `opencode.json`, just add the `"instructions"` key alongside your existing config.
+Then open OpenCode inside the cloned folder.
 
-That's it. Every OpenCode session you open from now on automatically knows how to build ProFinda-looking prototypes.
+That's it.
 
-## How to use
+---
 
-1. Open OpenCode in **any empty folder** on your machine
-2. Upload a screenshot of a ProFinda screen you want to replicate — or just describe your idea
-3. OpenCode builds and runs the prototype for you at `http://localhost:5173`
-4. Keep chatting to make changes: "add a filter here", "change this to a table", "add a new card"
+## How to prototype
 
-## What you get
+1. Open OpenCode inside this folder
+2. Upload a screenshot of any ProFinda screen — or just describe your idea in plain language
+3. OpenCode builds a running prototype that looks exactly like the real platform
+4. Keep chatting to evolve it: *"add a filter bar here"*, *"change this to a table"*, *"add a new section with availability"*
+5. Your prototype runs at **http://localhost:5173**
 
-- A running app that looks exactly like the real ProFinda platform
-- Same font, same colours, same components
-- Export with `npm run build` to get a shareable file
+---
+
+## To share your prototype
+
+Ask OpenCode: *"export this so I can share it"*
+
+It will build a portable file you can send by email or upload for others to view.
+
+---
 
 ## Requirements
 
 - [OpenCode](https://opencode.ai) installed
-- The `communities-storybook` MCP in your OpenCode config (ask your team lead)
+- The `communities-storybook` MCP configured (ask your team lead — one-time setup)
