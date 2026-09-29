@@ -29,8 +29,87 @@ When the user shares a screenshot:
 1. **Look carefully** at every element: navigation, headers, cards, tables, buttons, inputs, pills, badges, modals, empty states, icons
 2. **Name each element** before querying the MCP — e.g. "I can see a horizontal tab navigation, a page header with breadcrumbs, three match cards with scores, and a filter sidebar"
 3. **Query the MCP** for each named element
-4. **Map** screenshot element → platform component → JSX recreation
-5. **Then** write the code
+4. **Identify the container hierarchy** — before mapping components, identify what Tile wraps what (see RULE 2b below)
+5. **Map** screenshot element → Tile container → platform component → JSX
+6. **Then** write the code
+
+---
+
+## RULE 2b — Container hierarchy (CRITICAL — do this before writing any JSX)
+
+Every piece of content in the platform lives inside a `Tile` component. Before writing any component code, map out the container structure from the screenshot.
+
+### The Tile component
+
+```tsx
+<Tile tileStyle="..." padding="...">
+  {/* content */}
+</Tile>
+```
+
+**`tileStyle` — controls background, shadow, border:**
+
+| Style | Background | Shadow | Border | When to use |
+|---|---|---|---|---|
+| `highlight` | `#FFFFFF` white | card shadow | none | Main content cards — the most common |
+| `selected` | `#E7EAF8` blue-tint | none | none | Active sidebar panels, selected state blocks |
+| `interactive` | `#FFFFFF` white | hover shadow | none | Clickable cards (match cards, directory cards) |
+| `default` | `#F8F9FD` neutral | none | none | Background-level grouping, warning blocks |
+| `object-dark` | `#F8F9FD` neutral | none | `1px #CFDAF7` | Side panel inner blocks |
+| `object-light` | `#FFFFFF` white | none | `1px #CFDAF7` | Side panel inner blocks (white) |
+| `dark` | `#0C1457` navy | hover shadow | none | Dark clickable cards |
+
+**`padding` — three levels matching layout context:**
+
+| Padding | Value | When to use |
+|---|---|---|
+| `"screen"` | 24px | Top-level hero tiles sitting directly in the main page area |
+| `"content"` | 16px | Standard content cards — the default for most tiles |
+| `"panel"` | 8px | Compact blocks inside sidebars, overlays, nested containers |
+
+### Container mapping rules
+
+**NEVER use a raw `<div>` as a content container.** If you see a white box, a blue-tinted block, a card with shadow, or any content grouping in the screenshot — it is a `Tile`.
+
+**ALWAYS nest correctly:**
+- Page background (`#F8F9FD`) → Tiles sit directly on it, no wrapper needed
+- Sidebar panels → `Tile selected content` or `Tile highlight content` (one tile, sections divided by `<Divider />`)
+- Content cards (right column) → individual `Tile highlight content` per section, in a plain `div` flex column
+- Clickable match/profile cards → `Tile interactive content`
+- Warning/info blocks nested inside a tile → `Tile default panel`
+- Filter blocks in Matches → `Tile selected content` for accordions, `Tile highlight content` for filter controls
+
+### Container analysis workflow
+
+When you see a screenshot, say out loud:
+
+> "I can see:
+> - A left sidebar — this is `Tile selected content` (blue-tint, 16px padding)
+> - Three content sections on the right — each is its own `Tile highlight content`
+> - Match cards — each is `Tile interactive content` with padding removed (columns manage their own padding)
+> - A warning inside the filter — this is `Tile default panel` nested inside a `Tile highlight content`"
+
+**Then** write the Tile structure first, then fill in the components inside.
+
+### Dividers inside Tiles
+
+When sections inside a single Tile need visual separation, use `<Divider orientation="horizontal" style={{ margin: "0 -16px" }} />` to bleed edge-to-edge — matching how the real platform divides sidebar sections.
+
+### What NOT to do
+
+```tsx
+// ❌ WRONG — raw div as content container
+<div style={{ background: "white", padding: 24, borderRadius: 8, boxShadow: "..." }}>
+  <Header title="Description" />
+  <p>test</p>
+</div>
+
+// ✅ CORRECT — Tile component with proper style and padding
+<Tile tileStyle="highlight" padding="content">
+  <Header title="Description" />
+  <p>test</p>
+</Tile>
+```
 
 ---
 
