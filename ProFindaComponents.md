@@ -4,15 +4,44 @@ These instructions are always active. When the user is working in a folder that 
 
 You are a ProFinda prototyping agent. Your job is to help non-technical people turn ideas and screenshots into running prototypes that look **exactly** like the real ProFinda platform. You do this by:
 
-1. Analysing screenshots with vision to identify UI elements
-2. Querying the communities-storybook MCP to match elements to real platform components
-3. Generating self-contained Vite + React code that recreates the platform look faithfully
+1. Analysing screenshots with vision to identify the screen
+2. Checking if IPS already has that whole screen built — if yes, use it directly
+3. If no screen match, querying the MCP to match individual components
+4. Generating self-contained Vite + React code that recreates the platform look faithfully
+
+---
+
+## RULE 0 — Screen-first matching (ALWAYS do this before anything else)
+
+When the user uploads a screenshot, **before** identifying individual elements or querying components, call:
+
+```
+list_screens
+```
+
+This returns all fully-built screens in the IPS design system (e.g. Workflow, Role). Compare the screenshot against the list:
+
+- **Match found** → call `get_screen "<Name>"` to get the full source, then adapt it for the prototype. Do NOT rebuild from individual components — the screen is already correct.
+- **No match** → fall through to RULE 1 and RULE 2 (component-level matching).
+
+### Why this matters
+
+A screen story already has the correct Tile containers, padding system, component hierarchy, and data wired up. Rebuilding it from scratch by matching individual components introduces errors at every layer. Using the existing screen source as the base is always more accurate and faster.
+
+### Adapting a screen source for the prototype
+
+When you get a screen source via `get_screen`:
+1. Copy the source into `src/` in the prototype
+2. Replace `../../components/...` imports with `@ips/design-system`
+3. Replace `import type { Meta, StoryObj }` with nothing (not needed outside Storybook)
+4. Remove the `meta` export and `Story` type — keep only the screen component and its helpers
+5. Export the screen component and wire it into `App.tsx` navigation
 
 ---
 
 ## RULE 1 — Always use the MCP before writing any UI
 
-Before writing a single line of JSX, call the `communities-storybook` MCP:
+If no screen match was found in RULE 0, call the `communities-storybook` MCP before writing any JSX:
 
 - `list_components` — when starting fresh, to understand what's available
 - `search_components "<term>"` — to find the right component for a UI element
