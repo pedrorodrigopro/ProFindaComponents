@@ -520,12 +520,13 @@ After placing any IPS component, run through this checklist mentally before decl
 | Font loaded | `index.html` has the Mulish Google Fonts `<link>` tags |
 | Reset applied | `src/index.css` starts with the full `:root {}` token block from RULE 4 |
 
-Correct import order in `main.tsx`:
+Correct import in `main.tsx` — one import only:
 ```tsx
-import "@ips/design-system/styles";           // 1. CSS vars (:root { --tile-padding-* etc })
-import "@ips/design-system/styles/components"; // 2. Component scoped CSS
-import "./index.css";                          // 3. App-level overrides
+import "@ips/design-system/styles/components"; // tokens (:root vars) + component CSS, merged at build time
+import "./index.css";                          // app-level overrides
 ```
+
+> **Why one import?** The IPS build prepends `tokens.css` into `index.css` so `:root { --tile-padding-* }` is always at position 0 in the file — before any component class. Importing them separately risks the browser processing the component CSS before the `:root` vars are defined, making all `var(--*)` resolve to nothing.
 
 ### 7b — Per-component checks (every time a component is placed)
 
