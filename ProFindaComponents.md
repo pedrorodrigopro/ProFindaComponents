@@ -530,16 +530,27 @@ import "./index.css";                          // app-level overrides
 
 ### 7b — Per-component checks (every time a component is placed)
 
-**Tile**
-- `tileStyle` is one of: `highlight` | `selected` | `interactive` | `default` | `object-dark` | `object-light` | `dark`
-- `padding` is one of: `panel` | `content` | `screen` — NEVER omit this prop unless you intentionally want 0 padding (match cards only)
-- No `style={{ padding: ... }}` on the Tile itself — padding comes from the `padding` prop
-- No `style={{ background: ... }}` on the Tile — background comes from `tileStyle`
+**Tile — HARD RULES (inline style always beats class — this is how CSS works)**
+
+| ❌ NEVER do this | ✅ Do this instead |
+|---|---|
+| `style={{ padding: 0 }}` on a Tile | Use `padding="panel"` / `"content"` / `"screen"` |
+| `style={{ padding: "16px" }}` on a Tile | Use `padding="content"` |
+| `style={{ background: "#fff" }}` on a Tile | Use `tileStyle="highlight"` |
+| `style={{ boxShadow: "..." }}` on a Tile | Choose the right `tileStyle` |
+| `style={{ overflow: "hidden" }}` on a Tile to clip child corners | Don't — let the child manage its own radius |
+
+The `padding` prop applies a CSS class. Any `style={{ padding }}` you add will **always override it** because inline styles have higher specificity than classes. This is not a bug — it is how CSS works. Never put padding, background, or shadow on a Tile via `style`.
+
+The only safe use of `style` on a Tile: `width`, `flex`, `minWidth`, `alignSelf`, `marginTop` — layout properties the Tile doesn't manage itself.
+
+**`tileStyle` is one of:** `highlight` | `selected` | `interactive` | `default` | `object-dark` | `object-light` | `dark`
+**`padding` is one of:** `panel` (8px) | `content` (16px) | `screen` (24px)
 
 **Any component**
 - Props match exactly what `get_component` returned from the MCP — check prop names and value types
-- No inline `style` props that override the component's own spacing, colour, or typography
-- No className that targets the same properties the component manages internally
+- Never use inline `style` to set properties the component controls via props (padding, background, shadow, border-radius, font, color)
+- Safe inline `style` properties on any IPS component: `width`, `height`, `flex`, `flexShrink`, `minWidth`, `maxWidth`, `margin*`, `alignSelf`, `display` (only if overriding flex→block)
 
 ### 7c — Visual sanity check (look at the result)
 
