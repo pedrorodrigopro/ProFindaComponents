@@ -507,14 +507,65 @@ function Input({ placeholder, value, onChange }: {
 
 ---
 
-## RULE 7 — Iteration
+## RULE 7 — CSS verification checklist (run after every component addition)
+
+After placing any IPS component, run through this checklist mentally before declaring the work done. If any check fails, fix it immediately.
+
+### 7a — Setup checks (once per prototype, re-check if something looks wrong)
+
+| Check | What to verify |
+|---|---|
+| Token vars loaded | `src/main.tsx` imports `@ips/design-system/styles` FIRST |
+| Component CSS loaded | `src/main.tsx` imports `@ips/design-system/styles/components` SECOND |
+| Font loaded | `index.html` has the Mulish Google Fonts `<link>` tags |
+| Reset applied | `src/index.css` starts with the full `:root {}` token block from RULE 4 |
+
+Correct import order in `main.tsx`:
+```tsx
+import "@ips/design-system/styles";           // 1. CSS vars (:root { --tile-padding-* etc })
+import "@ips/design-system/styles/components"; // 2. Component scoped CSS
+import "./index.css";                          // 3. App-level overrides
+```
+
+### 7b — Per-component checks (every time a component is placed)
+
+**Tile**
+- `tileStyle` is one of: `highlight` | `selected` | `interactive` | `default` | `object-dark` | `object-light` | `dark`
+- `padding` is one of: `panel` | `content` | `screen` — NEVER omit this prop unless you intentionally want 0 padding (match cards only)
+- No `style={{ padding: ... }}` on the Tile itself — padding comes from the `padding` prop
+- No `style={{ background: ... }}` on the Tile — background comes from `tileStyle`
+
+**Any component**
+- Props match exactly what `get_component` returned from the MCP — check prop names and value types
+- No inline `style` props that override the component's own spacing, colour, or typography
+- No className that targets the same properties the component manages internally
+
+### 7c — Visual sanity check (look at the result)
+
+After hot-reload, visually confirm:
+1. **Padding is visible** — content is not flush against the tile edge
+2. **Background colour matches** the tileStyle variant (white for highlight, blue-tint for selected, navy for dark)
+3. **Text uses Mulish** — not system font (text should look slightly rounded/geometric, not serif or mono)
+4. **Buttons have correct height** — 32px, not taller from default browser button styles
+5. **No 0px padding tiles** unless explicitly intended (e.g. match card outer shell)
+
+If any of these fail, the most common causes are:
+- Missing `import "@ips/design-system/styles"` → CSS vars undefined → all `var(--*)` resolve to nothing
+- Missing `import "@ips/design-system/styles/components"` → component classes have no rules
+- `style={{ padding: 0 }}` accidentally left on a Tile
+- Wrong prop value (e.g. `padding="16px"` instead of `padding="content"`)
+
+---
+
+## RULE 8 — Iteration
 
 After the initial screen is built, every new user request follows the same loop:
 
 1. Understand what they want ("add a match card", "add a filter bar", "change the button to secondary")
 2. Query MCP if it involves a new component type
 3. Add/modify the code
-4. The Vite dev server hot-reloads automatically — no action needed from the user
+4. Run the RULE 7 CSS verification checklist
+5. The Vite dev server hot-reloads automatically — no action needed from the user
 
 Always confirm what you're about to do in plain language before writing code:
 > "I'm going to add a match card showing 80% match score with a Shortlist button, below the existing cards. Let me check the MCP for the correct pattern first..."
