@@ -9,6 +9,10 @@ You are a ProFinda prototyping agent. Your job is to turn descriptions, screensh
 
 **Everything you need is in this file.** Do not invent components, colours, icons or patterns not listed here.
 
+**IPS Storybook (live):** `https://pedrorodrigopro.github.io/IPS-DesignSystem/`
+**IPS source (GitHub):** `https://github.com/pedrorodrigopro/IPS-DesignSystem`
+**Screen stories base URL:** `https://raw.githubusercontent.com/pedrorodrigopro/IPS-DesignSystem/main/src/screens/`
+
 ---
 
 ## WORKFLOW
@@ -50,22 +54,25 @@ digraph ips {
 **When a screenshot is uploaded or a screen is named — check this table first.**
 If matched, read the story source file and adapt it. Do not rebuild from scratch.
 
-| Screen | Story file | Variants |
+Fetch story source from GitHub using the raw URL pattern:
+`https://raw.githubusercontent.com/pedrorodrigopro/IPS-DesignSystem/main/src/screens/{folder}/{file}.stories.tsx`
+
+| Screen | Raw URL | Variants |
 |---|---|---|
-| **Workflow** | `src/screens/workflow/workflow.stories.tsx` | `Engagements`, `Roles` |
-| **Role** | `src/screens/role/role.stories.tsx` | `Overview`, `Matches`, `Vacancies`, `History`, `Shortlist` |
-| **Engagement** | `src/screens/engagement/engagement.stories.tsx` | `Default` |
-| **Booking Engine** | `src/screens/booking_engine/booking_engine.stories.tsx` | `ProjectsEngagementsGantt`, `ProjectsRolesGantt`, `ProjectsEngagementsGrid`, `ProjectsRolesGrid`, `WorkforceBookings`, `WorkforceGrid` |
-| **Analytics** | `src/screens/analytics/analytics.stories.tsx` | `Reports`, `CreateDetails`, `CreateFields`, `CreateFilters`, `CreateGenerate` |
-| **Audit Planner** | `src/screens/audit_planner/audit_planner.stories.tsx` | `Default` |
-| **Marketplace** | `src/screens/marketplace/marketplace.stories.tsx` | `Home`, `WorkOpportunities` |
-| **My Profile** | `src/screens/my_profile/my_profile.stories.tsx` | `Default`, `Narrow` |
-| **Profiles Directory** | `src/screens/profiles_directory/profiles_directory.stories.tsx` | `Cards`, `TableView`, `SearchingCards`, `SearchingTable` |
-| **Admin — Skills** | `src/screens/admin/admin.stories.tsx` | `SkillsFrameworks` |
-| **Admin — Manage Roles** | `src/screens/admin/manage_roles.stories.tsx` | `DTT`, `EngagementRoles` |
+| **Workflow** | `.../workflow/workflow.stories.tsx` | `Engagements`, `Roles` |
+| **Role** | `.../role/role.stories.tsx` | `Overview`, `Matches`, `Vacancies`, `History`, `Shortlist` |
+| **Engagement** | `.../engagement/engagement.stories.tsx` | `Default` |
+| **Booking Engine** | `.../booking_engine/booking_engine.stories.tsx` | `ProjectsEngagementsGantt`, `ProjectsRolesGantt`, `ProjectsEngagementsGrid`, `ProjectsRolesGrid`, `WorkforceBookings`, `WorkforceGrid` |
+| **Analytics** | `.../analytics/analytics.stories.tsx` | `Reports`, `CreateDetails`, `CreateFields`, `CreateFilters`, `CreateGenerate` |
+| **Audit Planner** | `.../audit_planner/audit_planner.stories.tsx` | `Default` |
+| **Marketplace** | `.../marketplace/marketplace.stories.tsx` | `Home`, `WorkOpportunities` |
+| **My Profile** | `.../my_profile/my_profile.stories.tsx` | `Default`, `Narrow` |
+| **Profiles Directory** | `.../profiles_directory/profiles_directory.stories.tsx` | `Cards`, `TableView`, `SearchingCards`, `SearchingTable` |
+| **Admin — Skills** | `.../admin/admin.stories.tsx` | `SkillsFrameworks` |
+| **Admin — Manage Roles** | `.../admin/manage_roles.stories.tsx` | `DTT`, `EngagementRoles` |
 
 **Adapting a story:**
-1. Read the full story file
+1. Fetch the raw story file from GitHub (use WebFetch with the raw URL above)
 2. Copy the screen component + all helpers + all data
 3. Change `../../components/X` imports → `@ips/design-system`
 4. Remove `import type { Meta, StoryObj }`, `export default meta`, `type Story = StoryObj`
@@ -543,6 +550,7 @@ Run this when the prototype folder is empty.
     "react-dom": "^19.0.0",
     "@ips/design-system": "file:PATH_TO_IPS_DESIGN_SYSTEM"
   },
+  "notes": "Replace PATH_TO_IPS_DESIGN_SYSTEM with the local path to your clone of https://github.com/pedrorodrigopro/IPS-DesignSystem",
   "devDependencies": {
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
