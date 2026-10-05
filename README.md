@@ -8,7 +8,7 @@ Build ProFinda-looking HTML prototypes from screenshots and ideas using OpenCode
 
 Open OpenCode and send this message:
 
-> *"I want to create an HTML prototype. Please read and follow these instructions: https://raw.githubusercontent.com/pedrorodrigopro/ProFindaComponents/main/IPS.md"*
+> *"I want to create a self-contained HTML prototype. Please read and follow these instructions: https://raw.githubusercontent.com/pedrorodrigopro/ProFindaComponents/main/IPS.md"*
 
 Then describe what you want or upload a screenshot. That's it.
 
