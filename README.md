@@ -1,76 +1,48 @@
-# IPS Prototyping Agent
+# IPS Prototyping
 
-Build ProFinda-looking HTML prototypes from screenshots and ideas using OpenCode and the IPS design system. No coding required.
-
----
-
-## What you get
-
-Describe a screen or upload a screenshot → OpenCode builds a running prototype that looks exactly like the real ProFinda platform → you get a single HTML file to share.
+Build ProFinda-looking HTML prototypes from screenshots and ideas using OpenCode.
 
 ---
 
-## Setup (one time per machine)
+## How to start
 
-### 1. Install OpenCode
-Follow the instructions at [opencode.ai](https://opencode.ai).
+Open OpenCode and send this message:
 
-### 2. Install the IPS skill
+> *"I want to create an HTML prototype. Please read and follow these instructions: https://raw.githubusercontent.com/pedrorodrigopro/ProFindaComponents/main/IPS.md"*
 
-**Mac / Linux:**
-```bash
-mkdir -p ~/.config/opencode/skills/IPS
-curl -o ~/.config/opencode/skills/IPS/SKILL.md \
-  https://raw.githubusercontent.com/pedrorodrigopro/ProFindaComponents/main/IPS.md
-```
-
-**Windows (PowerShell):**
-```powershell
-New-Item -ItemType Directory -Force "$env:APPDATA\opencode\skills\IPS"
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/pedrorodrigopro/ProFindaComponents/main/IPS.md" `
-  -OutFile "$env:APPDATA\opencode\skills\IPS\SKILL.md"
-```
-
-### 3. Get the IPS Design System path
-Ask your team lead for the local path to the IPS Design System repo on your machine. You'll need it when you start your first prototype.
-
-That's it.
+Then describe what you want or upload a screenshot. That's it.
 
 ---
 
-## How to use it
+## What to say next
 
-### Start a prototype
+**From a screenshot:**
+> *"Here's a screenshot of the screen I want to prototype"* — then drag and drop the image
 
-1. Create an empty folder anywhere on your machine
-2. Open a terminal in that folder and run `opencode`
-3. Say what you want — for example:
+**From a description:**
+> *"Build me a prototype of the Role screen. When I click a role in the Workflow table it should navigate to the role detail."*
 
-> *"Build me a prototype of the Role screen. When I click a role in the Workflow table it should navigate here."*
+**New ideas:**
+> *"I want to add a new Shortlist review flow where managers can approve or reject candidates one by one."*
 
-> *"Here's a screenshot — build this as a prototype."*
+**Keep iterating:**
+> *"Add a filter sidebar on the left"*
+> *"Change the cards to a table view"*
+> *"The Approve button should be green"*
 
-> *"I want to show a new Shortlist review flow where managers can approve or reject candidates."*
+---
 
-OpenCode will ask for your IPS Design System path the first time, then build the prototype and tell you where to open it.
-
-### Keep iterating
-
-> *"Add a filter sidebar"*
-> *"Change these cards to a table"*
-> *"The Approve button should be primary"*
-
-### Share it
+## To share the prototype
 
 > *"Export this so I can share it"*
 
-You get `dist/index.html` — one file, email it or upload it anywhere.
+You get a single `dist/index.html` file — email it or open it in any browser.
 
 ---
 
 ## What screens are already built
 
-The agent knows these ProFinda screens and can use them directly:
+The agent knows these ProFinda screens and can use them directly from a screenshot or name:
 
 | Screen | What it includes |
 |---|---|
@@ -85,9 +57,4 @@ The agent knows these ProFinda screens and can use them directly:
 | **Profiles Directory** | Card view, Table view, Search states |
 | **Admin** | Skills Frameworks, Manage Roles |
 
-For anything not on this list — just describe it and the agent builds it using the correct IPS components.
-
----
-
-## Questions?
-Ask your team lead or the person who sent you this link.
+For anything not on this list — just describe it or upload a screenshot.
