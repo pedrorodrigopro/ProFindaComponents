@@ -1,116 +1,93 @@
-# ProFinda Prototype Agent
+# IPS Prototyping Agent
 
-Turn ideas and screenshots into working ProFinda-looking prototypes using OpenCode and the IPS design system. No coding required.
-
----
-
-## What this is
-
-An **agent** — a set of instructions you load into OpenCode once. After that, you describe a screen or upload a screenshot, and the AI builds a running prototype that looks exactly like the real ProFinda platform.
-
-The output is a single HTML file you can open in any browser or email to anyone.
+Build ProFinda-looking HTML prototypes from screenshots and ideas using OpenCode and the IPS design system. No coding required.
 
 ---
 
-## One-time setup (per machine)
+## What you get
+
+Describe a screen or upload a screenshot → OpenCode builds a running prototype that looks exactly like the real ProFinda platform → you get a single HTML file to share.
+
+---
+
+## Setup (one time per machine)
 
 ### 1. Install OpenCode
-
 Follow the instructions at [opencode.ai](https://opencode.ai).
 
-### 2. Install the ProFinda prototyping skill
-
-Copy the skill file to your OpenCode skills folder:
+### 2. Install the IPS skill
 
 **Mac / Linux:**
 ```bash
-mkdir -p ~/.config/opencode/skills/profinda-prototyping
-curl -o ~/.config/opencode/skills/profinda-prototyping/SKILL.md \
-  https://raw.githubusercontent.com/pedrorodrigopro/ProFindaComponents/main/skills/profinda-prototyping/SKILL.md
+mkdir -p ~/.config/opencode/skills/IPS
+curl -o ~/.config/opencode/skills/IPS/SKILL.md \
+  https://raw.githubusercontent.com/pedrorodrigopro/ProFindaComponents/main/IPS.md
 ```
 
 **Windows (PowerShell):**
 ```powershell
-New-Item -ItemType Directory -Force "$env:APPDATA\opencode\skills\profinda-prototyping"
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/pedrorodrigopro/ProFindaComponents/main/skills/profinda-prototyping/SKILL.md" `
-  -OutFile "$env:APPDATA\opencode\skills\profinda-prototyping\SKILL.md"
+New-Item -ItemType Directory -Force "$env:APPDATA\opencode\skills\IPS"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/pedrorodrigopro/ProFindaComponents/main/IPS.md" `
+  -OutFile "$env:APPDATA\opencode\skills\IPS\SKILL.md"
 ```
 
-### 3. Add these instructions to your OpenCode config
+### 3. Get the IPS Design System path
+Ask your team lead for the local path to the IPS Design System repo on your machine. You'll need it when you start your first prototype.
 
-Open (or create) `~/.config/opencode/opencode.json` and add the instructions URL:
-
-```json
-{
-  "instructions": [
-    "https://raw.githubusercontent.com/pedrorodrigopro/ProFindaComponents/main/ProFindaComponents.md"
-  ]
-}
-```
-
-If you already have an `opencode.json`, add the URL to the existing `instructions` array.
-
-### 4. Ask your team lead for the IPS Design System path
-
-The prototyping agent needs access to the IPS Design System on your machine (for components and styles). Ask your team lead — they'll give you the local path to add to your prototype's `package.json`.
+That's it.
 
 ---
 
 ## How to use it
 
-### Starting a prototype
+### Start a prototype
 
 1. Create an empty folder anywhere on your machine
 2. Open a terminal in that folder and run `opencode`
-3. Say what you want:
+3. Say what you want — for example:
 
-> *"Build me a prototype of the Role screen — Overview tab. When I click a role in Workflow it should navigate here."*
+> *"Build me a prototype of the Role screen. When I click a role in the Workflow table it should navigate here."*
 
-Or upload a screenshot and say:
+> *"Here's a screenshot — build this as a prototype."*
 
-> *"Build this screen as a prototype."*
+> *"I want to show a new Shortlist review flow where managers can approve or reject candidates."*
 
-The agent will ask clarifying questions if needed, then build the prototype and tell you how to open it.
+OpenCode will ask for your IPS Design System path the first time, then build the prototype and tell you where to open it.
 
-### Iterating
+### Keep iterating
 
-Keep the conversation going:
+> *"Add a filter sidebar"*
+> *"Change these cards to a table"*
+> *"The Approve button should be primary"*
 
-> *"Add a filter sidebar on the left"*
-> *"Change the cards to a table view"*
-> *"The Shortlist tab should have Approve and Reject buttons"*
-
-### Sharing the prototype
-
-Ask:
+### Share it
 
 > *"Export this so I can share it"*
 
-The agent runs a build and produces `dist/index.html` — a single file you can email or upload anywhere.
+You get `dist/index.html` — one file, email it or upload it anywhere.
 
 ---
 
-## What screens are available
+## What screens are already built
 
-The agent knows these ProFinda screens and can build them immediately:
+The agent knows these ProFinda screens and can use them directly:
 
 | Screen | What it includes |
 |---|---|
 | **Workflow** | Engagements and Roles tabs with sortable tables |
-| **Role** | Overview, Matches, Shortlist (with Approve/Reject), Vacancies, History |
-| **Engagement** | Engagement detail view |
+| **Role** | Overview, Matches, Shortlist (Approve/Reject), Vacancies, History |
+| **Engagement** | Engagement detail |
 | **Booking Engine** | Gantt and Grid views, Projects and Workforce panels |
-| **Analytics** | Reports list + Create Report flow |
-| **Audit Planner** | Full audit planner layout |
+| **Analytics** | Reports list + Create Report wizard |
+| **Audit Planner** | Full audit layout |
 | **Marketplace** | Home and Work Opportunities |
 | **My Profile** | Three-column and single-column variants |
 | **Profiles Directory** | Card view, Table view, Search states |
 | **Admin** | Skills Frameworks, Manage Roles |
 
-For anything not on this list, describe it and the agent will build it using the correct IPS components.
+For anything not on this list — just describe it and the agent builds it using the correct IPS components.
 
 ---
 
 ## Questions?
-
-Ask your team lead or the person who gave you this link.
+Ask your team lead or the person who sent you this link.
