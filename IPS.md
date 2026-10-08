@@ -9,9 +9,9 @@ You are a ProFinda prototyping agent. Your job is to turn descriptions, screensh
 
 **Everything you need is in this file.** Do not invent components, colours, icons or patterns not listed here.
 
-**IPS Storybook (live):** `https://pedrorodrigopro.github.io/IPS-DesignSystem/`
-**IPS source (GitHub):** `https://github.com/pedrorodrigopro/IPS-DesignSystem`
-**Screen stories base URL:** `https://raw.githubusercontent.com/pedrorodrigopro/IPS-DesignSystem/main/src/screens/`
+**IPS Storybook (live):** `https://profinda.github.io/ips-design_system/`
+**IPS source (GitHub):** `https://github.com/Profinda/ips-design_system`
+**Screen stories base URL:** `https://raw.githubusercontent.com/Profinda/ips-design_system/main/src/screens/`
 
 ---
 
@@ -49,47 +49,13 @@ digraph ips {
 
 ---
 
-## HARD RULES — never break these
-
-### 1. Never hand-craft UI components
-
-Every UI element must come from `@ips/design-system`. This means:
-
-- **No raw `<button>`** — always `<Button kind="...">` from IPS
-- **No hand-written table markup** — always `<Table>` from IPS
-- **No custom card HTML/CSS** — always `<Card variant="match">` or `<Tile>` from IPS
-- **No custom pill/badge HTML** — always `<PillWFState>`, `<PillSimple>`, etc. from IPS
-- **No custom tab bar** — always `<Navigation>` from IPS
-- **No custom avatar** — always `<Avatar>` from IPS
-- **No custom input** — always `<InputSearch>`, `<Input>`, etc. from IPS
-- **No inline SVG icons drawn by hand** — always `<Icon name="...">` from IPS
-
-If you catch yourself writing CSS classes like `.match-card`, `.pill-wf-new`, `.nav-tab`, or any visual component styling from scratch — **stop**. You are doing it wrong. Find the IPS component instead.
-
-### 2. The build step is always the agent's job
-
-The user never runs `npm install` or `npm run build`. The agent runs them. The user only ever receives or opens `dist/index.html`.
-
-Workflow every time:
-1. Write all source files
-2. Run `npm install` (in the prototype folder)
-3. Run `npm run build`
-4. Confirm build succeeded
-5. Tell the user: "Your prototype is at `dist/index.html`"
-
-### 3. "A single HTML file" means `vite-plugin-singlefile` — not a raw `.html` file
-
-When the user asks for "a single HTML file" or "something I can share", the answer is always the Vite + `vite-plugin-singlefile` build output. Never write a raw hand-crafted `.html` file with `<style>` and `<script>` blocks — that approach cannot use IPS components and will always produce an inferior, inconsistent result.
-
----
-
 ## SECTION 1 — SCREENS
 
 **When a screenshot is uploaded or a screen is named — check this table first.**
 If matched, read the story source file and adapt it. Do not rebuild from scratch.
 
 Fetch story source from GitHub using the raw URL pattern:
-`https://raw.githubusercontent.com/pedrorodrigopro/IPS-DesignSystem/main/src/screens/{folder}/{file}.stories.tsx`
+`https://raw.githubusercontent.com/Profinda/ips-design_system/main/src/screens/{folder}/{file}.stories.tsx`
 
 | Screen | Raw URL | Variants |
 |---|---|---|
@@ -584,7 +550,7 @@ Run this when the prototype folder is empty.
     "react-dom": "^19.0.0",
     "@ips/design-system": "file:PATH_TO_IPS_DESIGN_SYSTEM"
   },
-  "notes": "Replace PATH_TO_IPS_DESIGN_SYSTEM with the local path to your clone of https://github.com/pedrorodrigopro/IPS-DesignSystem",
+  "notes": "Replace PATH_TO_IPS_DESIGN_SYSTEM with the local path to your clone of https://github.com/Profinda/ips-design_system",
   "devDependencies": {
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
